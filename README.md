@@ -57,6 +57,41 @@ classDiagram
     AnalyticsSucceededEvent <|-- HeatingConsumptionEstimatesAvailable
 ```
 
+## Event catalog
+
+| Event | Category | Scope | Key fields |
+|---|---|---|---|
+| `DeviceProvisioned` | Device lifecycle | Device | `DeviceId`, `Type` ([`DeviceType`](Waas.Notification.Contracts/Enums/DeviceType.cs)), `Longitude`, `Latitude`, `StartDateTime`, household config |
+| `DeviceUnProvisioned` | Device lifecycle | Device | `DeviceId` |
+| `ProvisionedDeviceUpdated` | Device lifecycle | Device | `DeviceId`, household config fields |
+| `ConsumptionsAvailable` | Consumption data | Device | `DeviceId`, `BatchTimeSeriesDuration` ([`TimeSeriesDuration`](Waas.Notification.Contracts/Enums/TimeSeriesDuration.cs)), `LastTimestampInBatch` |
+| `ConsumptionBatchProcessingSucceeded` | Consumption batch | Batch | `BatchId` |
+| `ConsumptionBatchProcessingFailed` | Consumption batch | Batch | `BatchId`, `ReasonOfFailure` |
+| `ConsumptionBatchValidationFailed` | Consumption batch | Batch | `BatchId`, `Errors` |
+| `ConsumptionBatchDeviceOnboardingsMissing` | Consumption batch | Batch | `BatchId`, `NotOnboardedDeviceIds` |
+| `HouseConsumptionForecastSucceeded` | Forecasting | Device | `DeviceId`, `AnalyticsStart`, `AnalyticsEnd` |
+| `HouseConsumptionForecastFailed` | Forecasting | Device | `DeviceId`, `ReasonOfFailure` |
+| `HouseConsumptionForecastsAvailable` | Forecasting | Device | `DeviceId` |
+| `HeatingConsumptionForecastSucceeded` | Forecasting | Device | `DeviceId`, `AnalyticsStart`, `AnalyticsEnd` |
+| `HeatingConsumptionForecastFailed` | Forecasting | Device | `DeviceId`, `ReasonOfFailure` |
+| `HeatingConsumptionForecastsAvailable` | Forecasting | Device | `DeviceId` |
+| `HeatingConsumptionEstimatesAvailable` | Forecasting | Device | `DeviceId` |
+| `BaseConsumptionForecastSucceeded` | Forecasting | Device | `DeviceId`, `AnalyticsStart`, `AnalyticsEnd` |
+| `BaseConsumptionForecastFailed` | Forecasting | Device | `DeviceId`, `ReasonOfFailure` |
+| `BaseConsumptionForecastsAvailable` | Forecasting | Device | `DeviceId` |
+| `BaseConsumptionEstimatesAvailable` | Forecasting | Device | `DeviceId` |
+| `EvConsumptionEstimatesAvailable` | Forecasting | Device | `DeviceId` |
+| `ConsumptionDisaggregationSucceeded` | Disaggregation | Device | `DeviceId`, `AnalyticsStart`, `AnalyticsEnd` |
+| `ConsumptionDisaggregationFailed` | Disaggregation | Device | `DeviceId`, `ReasonOfFailure` |
+| `SpotPricesAvailable` | Market | Global | `BiddingZone`, `From`, `To` |
+| `SpotPriceForecastsAvailable` | Market | Global | `BiddingZone`, `From`, `To` |
+| `TransportationPricesAvailable` | Market | Global | `CountryCode`, `GridAreaId`, `From`, `To` |
+| `WeatherForecastsCollected` | Environment | Global | `From`, `To` |
+| `WeatherForecastsHistoryCollected` | Environment | Global | — |
+| `CO2AndOriginForecastsAvailable` | Environment | Global | `From`, `To` |
+
+> **Scope — Device** events carry a `DeviceId` and are scoped to a single metered device. **Global** events are not device-scoped (market prices, weather, CO2).
+
 ## Quick start
 
 Until the NuGet feed is public, clone this repo and add a project reference:
