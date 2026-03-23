@@ -57,6 +57,16 @@ classDiagram
     AnalyticsSucceededEvent <|-- HeatingConsumptionEstimatesAvailable
 ```
 
+## Running the sample
+
+A self-contained console app demonstrates serialization, deserialization, and event dispatching:
+
+```bash
+dotnet run --project Waas.Notification.Contracts.Sample
+```
+
+It simulates a set of events being received, deserializes each `NotificationCloudEvent<TEvent>` envelope, and dispatches to typed handlers — mirroring what a real consumer would do against Azure Service Bus or Event Grid.
+
 ## Event catalog
 
 | Event | Category | Scope | Key fields |
