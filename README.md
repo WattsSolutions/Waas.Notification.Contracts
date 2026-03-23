@@ -22,39 +22,14 @@ classDiagram
         +string ReasonOfFailure
     }
 
-    BaseEvent <|-- DeviceEvent
-    BaseEvent <|-- SpotPricesAvailable
-    BaseEvent <|-- SpotPriceForecastsAvailable
-    BaseEvent <|-- WeatherForecastsCollected
-    BaseEvent <|-- WeatherForecastsHistoryCollected
-    BaseEvent <|-- TransportationPricesAvailable
-    BaseEvent <|-- CO2AndOriginForecastsAvailable
-    BaseEvent <|-- ConsumptionBatchProcessingSucceeded
-    BaseEvent <|-- ConsumptionBatchProcessingFailed
-    BaseEvent <|-- ConsumptionBatchValidationFailed
-    BaseEvent <|-- ConsumptionBatchDeviceOnboardingsMissing
-
-    DeviceEvent <|-- ConsumptionsAvailable
-    DeviceEvent <|-- DeviceProvisioned
-    DeviceEvent <|-- DeviceUnProvisioned
-    DeviceEvent <|-- ProvisionedDeviceUpdated
-    DeviceEvent <|-- AnalyticsSucceededEvent
-    DeviceEvent <|-- DeviceFailureEvent
-
-    AnalyticsSucceededEvent <|-- HouseConsumptionForecastSucceeded
-    AnalyticsSucceededEvent <|-- HouseConsumptionForecastFailed
-    AnalyticsSucceededEvent <|-- HeatingConsumptionForecastSucceeded
-    AnalyticsSucceededEvent <|-- HeatingConsumptionForecastFailed
-    AnalyticsSucceededEvent <|-- BaseConsumptionForecastSucceeded
-    AnalyticsSucceededEvent <|-- BaseConsumptionForecastFailed
-    AnalyticsSucceededEvent <|-- ConsumptionDisaggregationSucceeded
-    AnalyticsSucceededEvent <|-- ConsumptionDisaggregationFailed
-    AnalyticsSucceededEvent <|-- HouseConsumptionForecastsAvailable
-    AnalyticsSucceededEvent <|-- HeatingConsumptionForecastsAvailable
-    AnalyticsSucceededEvent <|-- BaseConsumptionForecastsAvailable
-    AnalyticsSucceededEvent <|-- BaseConsumptionEstimatesAvailable
-    AnalyticsSucceededEvent <|-- EvConsumptionEstimatesAvailable
-    AnalyticsSucceededEvent <|-- HeatingConsumptionEstimatesAvailable
+    BaseEvent <|-- DeviceEvent : device-scoped events
+    BaseEvent <|-- MarketEvents : SpotPrices, Transportation
+    BaseEvent <|-- EnvironmentEvents : Weather, CO2
+    BaseEvent <|-- BatchEvents : ConsumptionBatch*
+    DeviceEvent <|-- AnalyticsSucceededEvent : analytics results
+    DeviceEvent <|-- DeviceFailureEvent : forecast failures
+    DeviceEvent <|-- ConcreteDeviceEvents : Provisioned, Consumptions…
+    AnalyticsSucceededEvent <|-- ForecastEvents : House, Heating, EV, Base…
 ```
 
 ## Running the sample
